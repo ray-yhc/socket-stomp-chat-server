@@ -24,7 +24,7 @@ public class ChatHandler extends TextWebSocketHandler {
         String id = session.getId();
         CLIENTS.put(id, session);
 
-        Message message = Message.builder().type("").sender(id).receiver("all").build();
+        Message message = Message.builder().sender(id).receiver("all").build();
         message.newConnect();
 
         CLIENTS.forEach((key, value) -> {
@@ -45,7 +45,7 @@ public class ChatHandler extends TextWebSocketHandler {
         CLIENTS.remove(id);
 
         Message message = Message.builder().sender(id).receiver("all").build();
-        message.newConnect();
+        message.closeConnect();
 
         CLIENTS.forEach((key, value) -> {
             if (!key.equals(id)) {
